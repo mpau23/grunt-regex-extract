@@ -10,35 +10,54 @@
 
 module.exports = function (grunt) {
 
-  // Please see the Grunt documentation for more information regarding task
-  // creation: http://gruntjs.com/creating-tasks
-
   grunt.registerMultiTask('regex_extract', 'Enable the user to extract all matching results of a regular expression and save them to file', function () {
 
-    // Merge task-specific and/or target-specific options with these defaults.
-    var options = this.options({
-      punctuation: '.',
-      separator: ', '
+var options = this.options(
+    {
+      regex : " ",
+      matchPoints : "1"
     });
 
-    // Iterate over all specified file groups.
-    this.files.forEach(function (file) {
-      // Concat specified files.
-      var src = file.src.filter(function (filepath) {
-        // Warn on and remove invalid source files (if nonull was set).
-        if (!grunt.file.exists(filepath)) {
+    // For each [destination : source map] in list
+    this.files.forEach(function(file)
+    {
+
+      // For each source file
+      var src = file.src.filter(function(filepath)
+      {
+
+        // Let me know through warning if a source doesn't exist
+        if (!grunt.file.exists(filepath))
+        {
           grunt.log.warn('Source file "' + filepath + '" not found.');
           return false;
-        } else {
+        }
+        else
+        {
           return true;
         }
-      }).map(function (filepath) {
+      }).map(function(filepath)
+      {
         // Read file source.
-        return grunt.file.read(filepath);
-      }).join(grunt.util.normalizelf(options.separator));
+        var filestring = grunt.file.read(filepath);
+        
+        var re = new RegExp(options.regex, "ig");
+        var match = "";
+        var matches = "";
+        var matchPointsArray = options.matchPoints.split(",");
 
-      // Handle options.
-      src += options.punctuation;
+        while ((match = re.exec(filestring)) !== null)
+        {
+          var matchstring = filepath;
+          matchPointsArray.forEach(function(current)
+          {
+            matchstring = matchstring + ",\"" + match[current] + "\"";
+          });
+          matches = matches + matchstring + "\n";
+          matchstring = undefined;
+        }
+        return matches;
+      }).join("");
 
       // Write the destination file.
       grunt.file.write(file.dest, src);
