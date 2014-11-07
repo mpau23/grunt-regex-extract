@@ -1,0 +1,31 @@
+{
+  "name": "grunt-regex-extract",
+  "version": "0.0.1",
+  "description": "Enable the user to extract all matching results of a regular expression and save them to file",
+  "homepage": "https://github.com/mpau23/grunt-regex-extract",
+  "repository": "https://github.com/mpau23/grunt-regex-extract.git",
+  "author": {
+    "name": "Miren Pau",
+    "email": "miren_pau23@hotmail.co.uk",
+    "url": ""
+  },
+  "keywords": [
+    "gruntplugin"
+  ],
+  "main": "Gruntfile.js",
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-contrib-nodeunit": "~0.3.0",
+    "grunt": "~0.4.2",
+    "jshint-stylish": "~0.1.5",
+    "load-grunt-tasks": "~0.3.0"
+  },
+  "scripts": {
+    "test": "grunt test"
+  }
+}
