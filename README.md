@@ -68,12 +68,16 @@ In this example, the default options are used to do something with whatever. So 
 
 ```js
 grunt.initConfig({
-  regex_extract: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
+    regex_extract: {
+		default_options: {
+			options: {
+				regex : "<script(.*|\n*)>(\s*|\n*)<\/script>"
+			},
+			files: {
+				'test/actual/default_options.txt': ['test/fixtures/example.html']
+			}
+		}
     },
-  },
 })
 ```
 
@@ -82,15 +86,19 @@ In this example, custom options are used to do something else with whatever else
 
 ```js
 grunt.initConfig({
-  regex_extract: {
-    options: {
-      separator: ': ',
-      punctuation: ' !!!',
+	regex_extract: {
+		default_options: {
+			options: {
+				regex : "<script(.*|\n*)>(\s*|\n*)<\/script>",
+				modifiers: "g",
+				matchPoints: "1,2",
+				includePath : true
+			},
+			files: {
+				'test/actual/default_options.txt': ['test/fixtures/example.html']
+			}
+		}
     },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
-    },
-  },
 })
 ```
 
