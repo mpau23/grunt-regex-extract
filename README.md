@@ -149,7 +149,7 @@ type="text/javascript" src="/js/footer-js-one.js",script
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-_(Nothing yet)_
+ * 2014-11-07	v0.1	This release presents the initial version of grunt-regex-extract
 
 ## License
 Copyright (c) 2014 Miren Pau. Licensed under the MIT license.
