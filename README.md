@@ -37,15 +37,15 @@ grunt.initConfig({
 
 ### Options
 
-#### options.separator
+#### options.regex
 Type: `String`
-Default value: `',  '`
+Default value: `'(.*|\n*)'`
 
-A string value that is used to do something with whatever.
+A string value that represents the regular expression to use.
 
-#### options.punctuation
+#### options.modifiers
 Type: `String`
-Default value: `'.'`
+Default value: `'ig'`
 
 A string value that is used to do something else with whatever else.
 

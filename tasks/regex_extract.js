@@ -6,16 +6,18 @@
  * Licensed under the MIT license.
  */
 
-'use strict';
-
 module.exports = function (grunt) {
 
   grunt.registerMultiTask('regex_extract', 'Enable the user to extract all matching results of a regular expression and save them to file', function () {
 
+  'use strict';
+  
 var options = this.options(
     {
-      regex : " ",
-      matchPoints : "1"
+      regex : "(.*|\n*)",
+	  modifiers: "ig",
+      matchPoints : "1",
+	  includePath : true
     });
 
     // For each [destination : source map] in list
@@ -40,22 +42,34 @@ var options = this.options(
       {
         // Read file source.
         var filestring = grunt.file.read(filepath);
-        
-        var re = new RegExp(options.regex, "ig");
+        var re = new RegExp(options.regex, options.modifiers);
         var match = "";
         var matches = "";
         var matchPointsArray = options.matchPoints.split(",");
 
         while ((match = re.exec(filestring)) !== null)
         {
-          var matchstring = filepath;
-          matchPointsArray.forEach(function(current)
+          var matchstring = "";
+		  if(options.includePath)
+		  {
+			matchstring += filepath;
+		  }
+		  
+		  matchPointsArray.forEach(function(current)
           {
-            matchstring = matchstring + ",\"" + match[current] + "\"";
+			if(!options.includePath && matchstring.length === 0)
+			{
+				matchstring += match[current].trim();
+			}
+			else
+			{
+				matchstring += ("," + match[current].trim());			
+			}
           });
           matches = matches + matchstring + "\n";
           matchstring = undefined;
         }
+		grunt.log.writeln(matches);
         return matches;
       }).join("");
 

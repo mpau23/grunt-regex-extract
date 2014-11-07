@@ -1,0 +1,3 @@
+test/fixtures/example.html,type="text/javascript" src="/js/header-js-one.js"
+test/fixtures/example.html,type="text/javascript" src="/js/footer-js-one.js"
+test/fixtures/example.html,type="text/javascript" src="/js/footer-js-two.js"
