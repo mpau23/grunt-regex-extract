@@ -63,9 +63,37 @@ A boolean value that determines whether the path of the file is to be included i
 
 ### Usage Examples
 
-#### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+#### Test File
 
+```html
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="ISO-8859-1">
+		<title>Hello World</title>
+		<script type="text/javascript" src="/js/header-js-one.js"></script>
+	</head>
+	<header>
+
+	</header>
+	<body>
+		<h1>Hello World!</h1>
+		<p>Foo Bar :)</p>
+	</body>
+	<footer>
+		<script type="text/javascript" src="/js/footer-js-one.js"></script>
+		<Script type="text/javascript" src="/js/footer-js-two.js"></script>
+		<script type="text/javascript">
+			var inlineFooterJsVar = "foo";
+		</script>
+	</footer>
+</html>
+```
+
+#### Default Options
+In this example, the default options are applied but only the regex option is explicitly passed.
+
+##### Configuration
 ```js
 grunt.initConfig({
     regex_extract: {
@@ -81,18 +109,26 @@ grunt.initConfig({
 })
 ```
 
-#### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
+##### Output
+```
+test/fixtures/example.html,type="text/javascript" src="/js/header-js-one.js"
+test/fixtures/example.html,type="text/javascript" src="/js/footer-js-one.js"
+test/fixtures/example.html,type="text/javascript" src="/js/footer-js-two.js"
+```
 
+#### Custom Options
+In this example, all the default options are overridden
+
+##### Configuration
 ```js
 grunt.initConfig({
 	regex_extract: {
 		default_options: {
 			options: {
-				regex : "<script(.*|\n*)>(\s*|\n*)<\/script>",
+				regex : "<script(.*|\n*)>(\s*|\n*)<\/(\s*|\n*)>",
 				modifiers: "g",
-				matchPoints: "1,2",
-				includePath : true
+				matchPoints: "1,3",
+				includePath : false
 			},
 			files: {
 				'test/actual/default_options.txt': ['test/fixtures/example.html']
@@ -101,6 +137,13 @@ grunt.initConfig({
     },
 })
 ```
+
+##### Output
+```
+type="text/javascript" src="/js/header-js-one.js",script
+type="text/javascript" src="/js/footer-js-one.js",script
+```
+
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
