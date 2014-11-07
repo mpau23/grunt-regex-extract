@@ -47,7 +47,19 @@ A string value that represents the regular expression to use.
 Type: `String`
 Default value: `'ig'`
 
-A string value that is used to do something else with whatever else.
+A string value that determines which JavaScript RegExp modifiers to use (such as 'i' and 'g')
+
+#### options.matchPoints
+Type: `String`
+Default value: `'1'`
+
+A comma separated list of match points to determine what part of the regex you want to extract. Note: starts with 1
+
+#### options.includePath
+Type: `boolean`
+Default value: `'true'`
+
+A boolean value that determines whether the path of the file is to be included in the destination file 
 
 ### Usage Examples
 
