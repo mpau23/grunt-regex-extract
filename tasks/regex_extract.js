@@ -17,7 +17,9 @@ var options = this.options(
       regex : "(.*|\n*)",
 	  modifiers: "ig",
       matchPoints : "1",
-	  includePath : true
+	  includePath : true,
+	  verbose : true,
+	  output : ""
     });
 
     // For each [destination : source map] in list
@@ -55,21 +57,45 @@ var options = this.options(
 			matchstring += filepath;
 		  }
 		  
-		  matchPointsArray.forEach(function(current)
+		  if(options.output)
+		  {
+        // find all the occurances of regex groups using "$1" and "$2" syntax
+        var outputString = options.output.replace(/\$(\d+)/, function(numbers) {
+          var index = numbers.substring(1);
+          
+          if(match[index])
           {
-			if(!options.includePath && matchstring.length === 0)
-			{
-				matchstring += match[current].trim();
-			}
-			else
-			{
-				matchstring += ("," + match[current].trim());			
-			}
-          });
+            return match[index].trim();
+          }
+          else
+          {
+            return "";
+          }
+        });
+
+        matchstring += outputString;
+		  }
+		  else
+      {
+  		  matchPointsArray.forEach(function(current)
+            {
+  			if(!options.includePath && matchstring.length === 0)
+  			{
+  				matchstring += match[current].trim();
+  			}
+  			else
+  			{
+  				matchstring += ("," + match[current].trim());			
+  			}
+            });
+      }
           matches = matches + matchstring + "\n";
           matchstring = undefined;
         }
+    if(options.verbose)
+    {
 		grunt.log.writeln(matches);
+    }
         return matches;
       }).join("");
 
