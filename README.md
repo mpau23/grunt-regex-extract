@@ -61,6 +61,18 @@ Default value: `'true'`
 
 A boolean value that determines whether the path of the file is to be included in the destination file 
 
+#### options.output
+Type: `String`
+Default value: `''`
+
+Allows complex outputs using using typical dollar-sign grouping syntax (e.g. My $1 complex $2 output)
+
+#### options.verbose
+Type: `boolean`
+Default value: `'true'`
+
+A boolean value that determines whether the output is printed in the console 
+
 ### Usage Examples
 
 #### Test File
